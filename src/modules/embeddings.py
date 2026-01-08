@@ -1,4 +1,10 @@
+import torch
+from torch import nn
+
+from .patch_embeddings import PatchEmbeddings
+
 class Embeddings(nn.Module):
+
 
     def __init__(self, config):
         super().__init__()

@@ -1,4 +1,9 @@
+import torch
+from torch import nn
+import math
+
 class AttentionHead(nn.Module):
+
 
     def __init__(self, hidden_size, attention_head_size, dropout, bias = True):
         super().__init__()
@@ -16,4 +21,5 @@ class AttentionHead(nn.Module):
         attention_scores = torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(self.attention_head_size)
         attention_probs = nn.functional.softmax(attention_scores, dim=-1)
         attention_probs = self.dropout(attention_probs)
-        return torch.matmul(attention_probs, value)
+        attention_output = torch.matmul(attention_probs, value)
+        return (attention_output, attention_probs)
